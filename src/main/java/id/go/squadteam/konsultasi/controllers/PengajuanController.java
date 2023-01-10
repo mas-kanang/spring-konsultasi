@@ -1,8 +1,9 @@
-package id.go.squadteam.konsultasi.models.controllers;
+package id.go.squadteam.konsultasi.controllers;
 
 import id.go.squadteam.konsultasi.models.entities.Pengajuan;
 import id.go.squadteam.konsultasi.models.repository.PengajuanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -26,8 +27,15 @@ public class PengajuanController {
 
     @PostMapping("/save")
     public ResponseEntity< ? > save(@RequestBody Pengajuan pengajuan){
-        pengajuanRepository.save(pengajuan);
-        return ResponseEntity.ok("Success");
+        if ( pengajuan.getNpwp() == null || pengajuan.getPerusahaan() == null
+                || pengajuan.getNamaPic() == null || pengajuan.getKodeLayanan() == null
+        || pengajuan.getNpwp().equals("") || pengajuan.getPerusahaan().equals("")
+                || pengajuan.getNamaPic().equals("")  || pengajuan.getKodeLayanan().equals("") ){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("data tidak lengkap");
+        } else {
+            pengajuanRepository.save(pengajuan);
+            return ResponseEntity.ok("Success");
+        }
     }
 
     @PostMapping("/delete/{id}")
@@ -53,9 +61,17 @@ public class PengajuanController {
 
     @PostMapping("/search/{page}")
     public ResponseEntity< ? > search(@PathVariable int page, @RequestParam String perusahaan){
-        Pageable pageAndSort = PageRequest.of(page > 0 ? page - 1 : page, 10, Sort.by("perusahaan").ascending());
-        List< Pengajuan > pengajuans = pengajuanRepository.findByPerusahaanContainingIgnoreCase(perusahaan,pageAndSort);
-        return ResponseEntity.ok(pengajuans);
+
+        if (perusahaan.equals("") || perusahaan == null) {
+            Pageable pageable = PageRequest.of(page > 0 ? page - 1 : page, 3);
+            Page pengajuans = pengajuanRepository.findAll(pageable);
+            return ResponseEntity.ok(pengajuans);
+        } else {
+            Pageable pageAndSort = PageRequest.of(page > 0 ? page - 1 : page, 10, Sort.by("perusahaan").ascending());
+            List< Pengajuan > pengajuans = pengajuanRepository.findByPerusahaanContainingIgnoreCase(perusahaan,pageAndSort);
+            return ResponseEntity.ok(pengajuans);
+        }
+
     }
 
 

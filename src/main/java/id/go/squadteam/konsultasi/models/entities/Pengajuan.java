@@ -12,8 +12,9 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Pengajuan {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pengajuan")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator="seq_aju")
+    @SequenceGenerator(name="seq_aju", sequenceName="seq_aju", allocationSize=1)
     private long id;
 
     @Column(name="npwp", length = 100, nullable = false)

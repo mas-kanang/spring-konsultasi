@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface PengajuanRepository  extends JpaRepository<Pengajuan, Long> {
     public List< Pengajuan > findByPerusahaanContainingIgnoreCase(String perusahaan, Pageable pageable);
+    public List < Pengajuan > findByKodeLayanan(String kodeLayanan);
+
 }

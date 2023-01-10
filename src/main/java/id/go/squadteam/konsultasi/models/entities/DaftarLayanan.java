@@ -14,15 +14,12 @@ import javax.persistence.Table;
 @NoArgsConstructor
 public class DaftarLayanan {
     @Id
-    @Column(name = "id_layanan")
-    private long id;
+    @Column(name="kode",length = 10, nullable = false)
+    private String id;
 
-    @Column(name="kode")
-    private String kode;
-
-    @Column(name="nama_layanan")
+    @Column(name="nama_layanan",length = 100, nullable = false)
     private String namaLayanan;
 
-    @Column(name="keterangan")
+    @Column(name="keterangan",length = 100, nullable = true)
     private String keterangan;
 }
