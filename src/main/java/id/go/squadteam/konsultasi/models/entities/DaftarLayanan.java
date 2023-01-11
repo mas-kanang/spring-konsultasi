@@ -22,4 +22,10 @@ public class DaftarLayanan {
 
     @Column(name="keterangan",length = 100, nullable = true)
     private String keterangan;
+
+    @Column(name="kode_kantor")
+    private String kodeKantor = "070100";
+
+    @Column(name="kode_unit_organisasi", nullable = true)
+    private String kodeUnitOrganisasi ;
 }
