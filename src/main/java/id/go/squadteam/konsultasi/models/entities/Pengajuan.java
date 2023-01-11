@@ -3,8 +3,11 @@ package id.go.squadteam.konsultasi.models.entities;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "pengajuan")
@@ -33,5 +36,28 @@ public class Pengajuan {
     private String nomorTiket;
 
     @Column(name="status", length = 100, nullable = true)
-    private String Status;
+    private String Status = "Kirim";
+
+    @Column(name="nip_rekam")
+    private String nipRekam;
+
+    @Column(name="nama_pegawai_rekam")
+    private String namaPegawaiRekam;
+
+    @CreationTimestamp
+    @Column(name="waktu_rekam")
+    private LocalDateTime waktuRekam;
+
+    @Column(name="nip_update")
+    private String nipUpdate;
+
+    @Column(name="nama_pegawai_update")
+    private String namaPegawaiUpdate;
+
+    @UpdateTimestamp
+    @Column(name="waktu_update")
+    private LocalDateTime waktuUpdate;
+
+    @Column(name="fl_active")
+    private String flActive = "Y";
 }

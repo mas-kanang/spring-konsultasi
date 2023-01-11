@@ -62,6 +62,7 @@ public class PengajuanController {
     @PostMapping("/search/{page}")
     public ResponseEntity< ? > search(@PathVariable int page, @RequestParam String perusahaan){
 
+
         if (perusahaan.equals("") || perusahaan == null) {
             Pageable pageable = PageRequest.of(page > 0 ? page - 1 : page, 3);
             Page pengajuans = pengajuanRepository.findAll(pageable);
