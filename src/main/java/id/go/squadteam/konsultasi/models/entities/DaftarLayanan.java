@@ -26,6 +26,6 @@ public class DaftarLayanan {
     @Column(name="kode_kantor")
     private String kodeKantor = "070100";
 
-    @Column(name="kode_unit_organisasi", nullable = true)
-    private String kodeUnitOrganisasi ;
+    @Column(name="kode_unit_organisasi")
+    private String kodeUnitOrganisasi = "35062607";
 }
